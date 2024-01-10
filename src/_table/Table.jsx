@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
+import { useMediaQuery } from "@react-hook/media-query";
+import TableMobile from "./TableMobile";
 
 function Table({ head, body, html }) {
+  const isMobile = useMediaQuery("only screen and (max-width: 548px)");
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState({ key: null, order: "asc" });
 
@@ -29,27 +33,33 @@ function Table({ head, body, html }) {
   });
 
   const finalResult = filteredItems;
+  const searchArea = (
+    <div className="px-4 flex mt-5 mb-2">
+      <input
+        key="search-input"
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full outline-none border rounded p-2 focus:border-orange-500"
+        type="text"
+        placeholder="search user"
+      />
+      {sort.key !== null && (
+        <button
+          onClick={() => setSort({ key: null, order: "asc" })}
+          className="whitespace-nowrap border border-red-600 rounded ml-1 px-1"
+        >
+          Cancel sorting
+        </button>
+      )}
+    </div>
+  );
+  if (isMobile) {
+    return <TableMobile head={head} body={finalResult} search={searchArea} />;
+  }
 
   return (
     <>
       {html}
-      <div className="px-4 flex mt-5 mb-2">
-        <input
-          key="search-input"
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full outline-none border rounded p-2 focus:border-orange-500"
-          type="text"
-          placeholder="search user"
-        />
-        {sort.key !== null && (
-          <button
-            onClick={() => setSort({ key: null, order: "asc" })}
-            className="whitespace-nowrap border border-red-600 rounded ml-1 px-1"
-          >
-            Cancel sorting
-          </button>
-        )}
-      </div>
+      {searchArea}
       <div className="w-full px-4">
         <table className="border w-full rounded">
           <thead>

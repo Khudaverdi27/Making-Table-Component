@@ -41,11 +41,11 @@ function App() {
           user.name,
           user.email,
           user.age,
-          <div className="space-x-2 text-white">
-            <button className="bg-blue-600 p-1 rounded">edit</button>
+          <div className="space-x-2 flex text-white w-full ">
+            <button className="bg-blue-600 p-1 rounded flex-grow">edit</button>
             <button
               onClick={() => deleteState(index)}
-              className="bg-red-500 p-1 rounded"
+              className="bg-red-500 p-1 rounded flex-grow"
             >
               delete
             </button>
