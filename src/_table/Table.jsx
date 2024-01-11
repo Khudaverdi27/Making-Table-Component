@@ -2,37 +2,23 @@ import { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import { useMediaQuery } from "@react-hook/media-query";
 import TableMobile from "./TableMobile";
+import useSort from "./useSort";
 
 function Table({ head, body, html }) {
+  const [search, setSearch] = useState("");
+
   const isMobile = useMediaQuery("only screen and (max-width: 548px)");
 
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState({ key: null, order: "asc" });
-
-  // Filtr for search
   const filteredItems = body.filter((items) =>
     items.some((item) =>
       item.toString().toLowerCase().includes(search.toLowerCase())
     )
   );
 
-  // sorting for sort icon
-  filteredItems.sort((a, b) => {
-    if (sort.key !== null) {
-      const valueA = a[sort.key].toString().toLowerCase();
-      const valueB = b[sort.key].toString().toLowerCase();
+  const [finalResult, sort, setSort] = useSort(filteredItems);
 
-      if (sort.order === "asc") {
-        return valueA.localeCompare(valueB);
-      } else if (sort.order === "desc") {
-        return valueB.localeCompare(valueA);
-      }
-    }
+  // Filtr for search
 
-    return 0;
-  });
-
-  const finalResult = filteredItems;
   const searchArea = (
     <div className="px-4 flex mt-5 mb-2">
       <input
@@ -53,7 +39,14 @@ function Table({ head, body, html }) {
     </div>
   );
   if (isMobile) {
-    return <TableMobile head={head} body={finalResult} search={searchArea} />;
+    return (
+      <TableMobile
+        head={head}
+        body={finalResult}
+        search={searchArea}
+        html={html}
+      />
+    );
   }
 
   return (
