@@ -10,6 +10,7 @@ function App() {
     { name: "Alex Mocker", email: "Alex@example.com", age: "52" },
   ]);
   const [editIndex, setEditIndex] = useState(null);
+  const [editValue, setValue] = useState("");
 
   const deleteState = (index) => {
     const newUser = [...user];
@@ -17,7 +18,21 @@ function App() {
     setUser(newUser);
   };
   const editState = (index) => {
-    setEditIndex((prevIndex) => (prevIndex === index ? null : index));
+    setEditIndex((prevIndex) => (prevIndex === index ? null : index)); // toggle input
+
+    const { key, value } = editValue;
+
+    if (key && value) {
+      setUser((prevUsers) => {
+        const updatedUsers = [...prevUsers];
+        updatedUsers[index][key] = value;
+        console.log(updatedUsers);
+        return updatedUsers;
+      });
+    }
+
+    // Clear the input values after editing
+    setValue({ key: "", value: "" });
   };
 
   const html = (
@@ -35,7 +50,7 @@ function App() {
     <div>
       <Table
         editIndex={editIndex}
-        setUser={setUser}
+        setValue={setValue}
         html={html}
         head={[
           { name: "Name", sort: true },
@@ -44,9 +59,9 @@ function App() {
           { name: "Actions", width: 150 },
         ]}
         body={user.map((user, index) => [
-          user.name,
-          user.email,
-          user.age,
+          user?.name,
+          user?.email,
+          user?.age,
 
           <div className="space-x-2 flex text-white w-full ">
             <button

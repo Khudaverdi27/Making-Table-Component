@@ -4,14 +4,14 @@ import { useMediaQuery } from "@react-hook/media-query";
 import TableMobile from "./TableMobile";
 import useSort from "./useSort";
 
-function Table({ head, body, html, editIndex }) {
+function Table({ head, body, html, editIndex, setValue }) {
   const [search, setSearch] = useState("");
 
   const isMobile = useMediaQuery("only screen and (max-width: 548px)");
 
   const filteredItems = body.filter((items) =>
     items.some((item) =>
-      item.toString().toLowerCase().includes(search.toLowerCase())
+      item?.toString().toLowerCase().includes(search.toLowerCase())
     )
   );
 
@@ -91,6 +91,12 @@ function Table({ head, body, html, editIndex }) {
                     {d}
                     {typeof d !== "object" && editIndex === i && (
                       <input
+                        onChange={(e) =>
+                          setValue({
+                            key: head[j].name.toLowerCase(),
+                            value: e.target.value,
+                          })
+                        }
                         className="border border-green-400 outline-none rounded flex justify-end"
                         type="text"
                       />
