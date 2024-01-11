@@ -4,24 +4,22 @@ import "./assets/css/index.css";
 
 function App() {
   const [user, setUser] = useState([
-    { name: "John Doe", email: "john@example.com", age: "16", input: true },
-    {
-      name: "mickel ericson",
-      email: "mickel@example.com",
-      age: "15",
-      input: true,
-    },
-    { name: "Lisa Augusto", email: "Lisa@example.com", age: "55", input: true },
-    { name: "Alex Mocker", email: "Alex@example.com", age: "52", input: true },
+    { name: "John Doe", email: "john@example.com", age: "16" },
+    { name: "mickel ericson", email: "mickel@example.com", age: "15" },
+    { name: "Lisa Augusto", email: "Lisa@example.com", age: "55" },
+    { name: "Alex Mocker", email: "Alex@example.com", age: "52" },
   ]);
-
-  const [edit, setEdit] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
 
   const deleteState = (index) => {
     const newUser = [...user];
     newUser.splice(index, 1);
     setUser(newUser);
   };
+  const editState = (index) => {
+    setEditIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
   const html = (
     <div
       className={
@@ -36,7 +34,7 @@ function App() {
   return (
     <div>
       <Table
-        edit={edit}
+        editIndex={editIndex}
         setUser={setUser}
         html={html}
         head={[
@@ -52,10 +50,10 @@ function App() {
 
           <div className="space-x-2 flex text-white w-full ">
             <button
-              onClick={() => setEdit(!edit)}
+              onClick={() => editState(index)}
               className="bg-blue-600 p-1 rounded w-auto whitespace-nowrap"
             >
-              {edit ? "Cancel Edit" : "Edit"}
+              {editIndex == index ? "Done" : "Edit"}
             </button>
 
             <button

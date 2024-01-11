@@ -4,7 +4,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import TableMobile from "./TableMobile";
 import useSort from "./useSort";
 
-function Table({ head, body, html, edit }) {
+function Table({ head, body, html, editIndex }) {
   const [search, setSearch] = useState("");
 
   const isMobile = useMediaQuery("only screen and (max-width: 548px)");
@@ -83,14 +83,17 @@ function Table({ head, body, html, edit }) {
           <tbody>
             {finalResult.map((b, i) => (
               <tr className="border group" key={i}>
-                {b.map((d, i) => (
+                {b.map((d, j) => (
                   <td
                     className="p-2 group-hover:bg-gray-300 group-hover:text-blue-800"
-                    key={i}
+                    key={j}
                   >
                     {d}
-                    {typeof d !== "object" && edit && (
-                      <input className="border flex justify-end" type="text" />
+                    {typeof d !== "object" && editIndex === i && (
+                      <input
+                        className="border border-green-400 outline-none rounded flex justify-end"
+                        type="text"
+                      />
                     )}
                   </td>
                 ))}
