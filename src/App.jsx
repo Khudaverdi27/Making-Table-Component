@@ -4,11 +4,18 @@ import "./assets/css/index.css";
 
 function App() {
   const [user, setUser] = useState([
-    { name: "John Doe", email: "john@example.com", age: "16" },
-    { name: "mickel ericson", email: "mickel@example.com", age: "15" },
-    { name: "Lisa Augusto", email: "Lisa@example.com", age: "55" },
-    { name: "Alex Mocker", email: "Alex@example.com", age: "52" },
+    { name: "John Doe", email: "john@example.com", age: "16", input: true },
+    {
+      name: "mickel ericson",
+      email: "mickel@example.com",
+      age: "15",
+      input: true,
+    },
+    { name: "Lisa Augusto", email: "Lisa@example.com", age: "55", input: true },
+    { name: "Alex Mocker", email: "Alex@example.com", age: "52", input: true },
   ]);
+
+  const [edit, setEdit] = useState(false);
 
   const deleteState = (index) => {
     const newUser = [...user];
@@ -29,6 +36,7 @@ function App() {
   return (
     <div>
       <Table
+        edit={edit}
         setUser={setUser}
         html={html}
         head={[
@@ -41,8 +49,15 @@ function App() {
           user.name,
           user.email,
           user.age,
+
           <div className="space-x-2 flex text-white w-full ">
-            <button className="bg-blue-600 p-1 rounded flex-grow">edit</button>
+            <button
+              onClick={() => setEdit(!edit)}
+              className="bg-blue-600 p-1 rounded w-auto whitespace-nowrap"
+            >
+              {edit ? "Cancel Edit" : "Edit"}
+            </button>
+
             <button
               onClick={() => deleteState(index)}
               className="bg-red-500 p-1 rounded flex-grow"

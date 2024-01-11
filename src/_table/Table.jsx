@@ -4,7 +4,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import TableMobile from "./TableMobile";
 import useSort from "./useSort";
 
-function Table({ head, body, html }) {
+function Table({ head, body, html, edit }) {
   const [search, setSearch] = useState("");
 
   const isMobile = useMediaQuery("only screen and (max-width: 548px)");
@@ -89,6 +89,9 @@ function Table({ head, body, html }) {
                     key={i}
                   >
                     {d}
+                    {typeof d !== "object" && edit && (
+                      <input className="border flex justify-end" type="text" />
+                    )}
                   </td>
                 ))}
               </tr>
