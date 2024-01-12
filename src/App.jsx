@@ -2,6 +2,8 @@ import { useState } from "react";
 import Table from "./_table/Table";
 import "./assets/css/index.css";
 import useEdit from "./_table/useEdit";
+import { LuFileEdit } from "react-icons/lu";
+import { MdOutlineDelete, MdOutlineDoneOutline } from "react-icons/md";
 
 function App() {
   const [user, setUser] = useState([
@@ -50,16 +52,16 @@ function App() {
           <div className="space-x-2 flex text-white w-full " key={index}>
             <button
               onClick={() => editState(index, setUser)}
-              className="bg-blue-600 p-1 rounded w-auto whitespace-nowrap"
+              className="bg-blue-600 py-1 rounded w-auto justify-center text-xl flex flex-grow"
             >
-              {editIndex == index ? "Done" : "Edit"}
+              {editIndex == index ? <MdOutlineDoneOutline /> : <LuFileEdit />}
             </button>
 
             <button
               onClick={() => deleteState(index)}
-              className="bg-red-500 p-1 rounded flex-grow"
+              className="bg-red-500 py-1 rounded flex-grow flex text-xl justify-center"
             >
-              delete
+              <MdOutlineDelete />
             </button>
           </div>,
         ])}
