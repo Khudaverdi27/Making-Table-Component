@@ -22,7 +22,7 @@ function App() {
       className={
         user.length > 0
           ? `hidden`
-          : `text-center w-full bg-orange-200 text-white border rounded-md p-2 font-bold`
+          : `text-center w-full bg-orange-200 text-white border rounded-md px-1 font-bold my-1 `
       }
     >
       table is empty
@@ -32,6 +32,7 @@ function App() {
   return (
     <div>
       <Table
+        setUser={setUser}
         editIndex={editIndex}
         setValue={setEditValue}
         html={html}

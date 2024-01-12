@@ -5,7 +5,7 @@ import TableMobile from "./TableMobile";
 import useSort from "./useSort";
 import SearchArea from "./searchArea";
 
-function Table({ head, body, html, editIndex, setValue }) {
+function Table({ head, body, html, editIndex, setValue, setUser }) {
   const [search, setSearch] = useState("");
   const isMobile = useMediaQuery("only screen and (max-width: 548px)");
 
@@ -27,6 +27,7 @@ function Table({ head, body, html, editIndex, setValue }) {
         html={html}
         editIndex={editIndex}
         setValue={setValue}
+        search={search}
         setSearch={setSearch}
       />
     );
@@ -36,6 +37,8 @@ function Table({ head, body, html, editIndex, setValue }) {
     <>
       {html}
       <SearchArea
+        setUser={setUser}
+        search={search}
         body={finalResult}
         setSearch={setSearch}
         setSort={setSort}
