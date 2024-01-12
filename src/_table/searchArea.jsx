@@ -16,7 +16,7 @@ function SearchArea({ setSearch, sort, setSort, body, setUser, search }) {
       )}
       {error && (
         <div className="border text-center text-white font-bold bg-red-400 whitespace-nowrap px-1 border-red-600 rounded shadow-md my-1">
-          example:user,email,age
+          example: <span className="font-normal">john,@example.com,25</span>
         </div>
       )}
       <div className="px-4 flex mt-5 mb-2">

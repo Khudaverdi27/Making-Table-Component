@@ -22,7 +22,7 @@ function App() {
       className={
         user.length > 0
           ? `hidden`
-          : `text-center w-full bg-orange-200 text-white border rounded-md px-1 font-bold my-1 `
+          : `text-center w-full bg-orange-200 text-white border rounded-md px-1 font-bold my-1 shadow border-orange-600`
       }
     >
       table is empty
