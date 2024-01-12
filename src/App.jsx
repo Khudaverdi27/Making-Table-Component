@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Table from "./_table/Table";
 import "./assets/css/index.css";
+import useEdit from "./_table/useEdit";
 
 function App() {
   const [user, setUser] = useState([
@@ -9,30 +10,13 @@ function App() {
     { name: "Lisa Augusto", email: "Lisa@example.com", age: "55" },
     { name: "Alex Mocker", email: "Alex@example.com", age: "52" },
   ]);
-  const [editIndex, setEditIndex] = useState(null);
-  const [editValue, setValue] = useState("");
+
+  const [editIndex, setEditValue, editState] = useEdit(null);
 
   const deleteState = (index) => {
     const newUser = [...user];
     newUser.splice(index, 1);
     setUser(newUser);
-  };
-  const editState = (index) => {
-    setEditIndex((prevIndex) => (prevIndex === index ? null : index)); // toggle input
-
-    const { key, value } = editValue;
-
-    if (key && value) {
-      setUser((prevUsers) => {
-        const updatedUsers = [...prevUsers];
-        updatedUsers[index][key] = value;
-        console.log(updatedUsers);
-        return updatedUsers;
-      });
-    }
-
-    // Clear the input values after editing
-    setValue({ key: "", value: "" });
   };
 
   const html = (
@@ -46,11 +30,12 @@ function App() {
       table is empty
     </div>
   );
+
   return (
     <div>
       <Table
         editIndex={editIndex}
-        setValue={setValue}
+        setValue={setEditValue}
         html={html}
         head={[
           { name: "Name", sort: true },
@@ -63,9 +48,9 @@ function App() {
           user?.email,
           user?.age,
 
-          <div className="space-x-2 flex text-white w-full ">
+          <div className="space-x-2 flex text-white w-full " key={index}>
             <button
-              onClick={() => editState(index)}
+              onClick={() => editState(index, setUser)}
               className="bg-blue-600 p-1 rounded w-auto whitespace-nowrap"
             >
               {editIndex == index ? "Done" : "Edit"}

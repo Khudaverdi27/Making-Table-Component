@@ -45,6 +45,8 @@ function Table({ head, body, html, editIndex, setValue }) {
         body={finalResult}
         search={searchArea}
         html={html}
+        editIndex={editIndex}
+        setValue={setValue}
       />
     );
   }

@@ -1,7 +1,9 @@
 import useSort from "./useSort";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
-function TableMobile({ head, body, search, html }) {
+
+function TableMobile({ head, body, search, html, editIndex, setValue }) {
   const [finalResult, sort, setSort] = useSort(body);
+
   return (
     <>
       {html}
@@ -33,9 +35,23 @@ function TableMobile({ head, body, search, html }) {
         {finalResult.map((items, key) => (
           <section key={key}>
             {items.map((item, i) => (
-              <div className="flex items-center" key={i}>
-                <h6 className="font-bold min-w-[150px] mb-2">{head[i].name}</h6>
-                {item}
+              <div className="flex items-center " key={i}>
+                <h6 className="font-bold min-w-[80px] mb-2">{head[i].name}</h6>
+                <div className="flex justify-between w-full">
+                  {item}
+                  {typeof item !== "object" && editIndex === key && (
+                    <input
+                      onChange={(e) =>
+                        setValue({
+                          key: head[i].name.toLowerCase(),
+                          value: e.target.value,
+                        })
+                      }
+                      className="border border-green-400 outline-none rounded flex justify-end"
+                      type="text"
+                    />
+                  )}
+                </div>
               </div>
             ))}
           </section>
