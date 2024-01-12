@@ -7,8 +7,6 @@ function App() {
   const [user, setUser] = useState([
     { name: "John Doe", email: "john@example.com", age: "16" },
     { name: "mickel ericson", email: "mickel@example.com", age: "15" },
-    { name: "Lisa Augusto", email: "Lisa@example.com", age: "55" },
-    { name: "Alex Mocker", email: "Alex@example.com", age: "52" },
   ]);
 
   const [editIndex, setEditValue, editState] = useEdit(null);

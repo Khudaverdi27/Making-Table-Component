@@ -3,10 +3,10 @@ import { FaSortDown, FaSortUp } from "react-icons/fa";
 import { useMediaQuery } from "@react-hook/media-query";
 import TableMobile from "./TableMobile";
 import useSort from "./useSort";
+import SearchArea from "./searchArea";
 
 function Table({ head, body, html, editIndex, setValue }) {
   const [search, setSearch] = useState("");
-
   const isMobile = useMediaQuery("only screen and (max-width: 548px)");
 
   const filteredItems = body.filter((items) =>
@@ -19,34 +19,15 @@ function Table({ head, body, html, editIndex, setValue }) {
 
   // Filtr for search
 
-  const searchArea = (
-    <div className="px-4 flex mt-5 mb-2">
-      <input
-        key="search-input"
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full outline-none border rounded p-2 focus:border-orange-500"
-        type="text"
-        placeholder="search user"
-      />
-      {sort.key !== null && (
-        <button
-          onClick={() => setSort({ key: null, order: "asc" })}
-          className="whitespace-nowrap border border-red-600 rounded ml-1 px-1"
-        >
-          Cancel sorting
-        </button>
-      )}
-    </div>
-  );
   if (isMobile) {
     return (
       <TableMobile
         head={head}
         body={finalResult}
-        search={searchArea}
         html={html}
         editIndex={editIndex}
         setValue={setValue}
+        setSearch={setSearch}
       />
     );
   }
@@ -54,7 +35,12 @@ function Table({ head, body, html, editIndex, setValue }) {
   return (
     <>
       {html}
-      {searchArea}
+      <SearchArea
+        body={finalResult}
+        setSearch={setSearch}
+        setSort={setSort}
+        sort={sort}
+      />
       <div className="w-full px-4">
         <table className="border w-full rounded">
           <thead>

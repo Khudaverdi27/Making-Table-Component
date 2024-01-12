@@ -1,13 +1,19 @@
+import SearchArea from "./searchArea";
 import useSort from "./useSort";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 
-function TableMobile({ head, body, search, html, editIndex, setValue }) {
+function TableMobile({ head, body, html, editIndex, setValue, setSearch }) {
   const [finalResult, sort, setSort] = useSort(body);
 
   return (
     <>
       {html}
-      {search}
+      <SearchArea
+        setSearch={setSearch}
+        setSort={setSort}
+        sort={sort}
+        body={body}
+      />
       <div className="flex items-center justify-between my-1">
         {head.map(
           (h, i) =>
