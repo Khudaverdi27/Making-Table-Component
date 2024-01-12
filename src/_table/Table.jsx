@@ -28,6 +28,7 @@ function Table({ head, body, html, editIndex, setValue, setUser }) {
         editIndex={editIndex}
         setValue={setValue}
         search={search}
+        setUser={setUser}
         setSearch={setSearch}
       />
     );

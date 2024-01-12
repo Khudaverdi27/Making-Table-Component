@@ -1,21 +1,8 @@
-import { useState } from "react";
+import useAdd from "./addUser";
 
 function SearchArea({ setSearch, sort, setSort, body, setUser, search }) {
-  const [error, setError] = useState(false);
   const isUserNotFound = body.length === 0;
-  const handleAddUser = () => {
-    const arr = search.split(",");
-    if (arr.length === 3) {
-      setUser((prevUser) => {
-        return [...prevUser, { name: arr[0], email: arr[1], age: arr[2] }];
-      });
-      setSearch("");
-      setError(false);
-    } else {
-      setError(true);
-    }
-  };
-
+  const [error, handleAddUser] = useAdd(search, setUser, setSearch);
   const handleCancelSorting = () => {
     setSort({ key: null, order: "asc" });
   };

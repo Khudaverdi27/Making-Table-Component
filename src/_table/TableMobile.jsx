@@ -2,7 +2,16 @@ import SearchArea from "./searchArea";
 import useSort from "./useSort";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 
-function TableMobile({ head, body, html, editIndex, setValue, setSearch }) {
+function TableMobile({
+  head,
+  body,
+  html,
+  editIndex,
+  setValue,
+  setSearch,
+  search,
+  setUser,
+}) {
   const [finalResult, sort, setSort] = useSort(body);
 
   return (
@@ -10,6 +19,8 @@ function TableMobile({ head, body, html, editIndex, setValue, setSearch }) {
       {html}
       <SearchArea
         setSearch={setSearch}
+        setUser={setUser}
+        search={search}
         setSort={setSort}
         sort={sort}
         body={body}
