@@ -47,7 +47,7 @@ function TableMobile({ head, body, search, html, editIndex, setValue }) {
                           value: e.target.value,
                         })
                       }
-                      className="border border-green-400 outline-none rounded flex justify-end"
+                      className="border border-green-400 outline-none rounded flex justify-end max-w-[120px]"
                       type="text"
                     />
                   )}
